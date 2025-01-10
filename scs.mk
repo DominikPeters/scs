@@ -153,10 +153,6 @@ endif
 
 BLASLDFLAGS =
 USE_LAPACK = 1
-# Disable LAPACK if the 'wasm' target is specified
-ifeq ($(filter wasm,$(MAKECMDGOALS)),wasm)
-  USE_LAPACK := 0
-endif
 ifneq ($(USE_LAPACK), 0)
   # edit these for your setup:
   BLASLDFLAGS += -llapack -lblas # -lgfortran
