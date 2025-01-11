@@ -7,14 +7,11 @@ These examples assume that you have loaded `scs.js`, either in Node.js via
 
 .. code-block:: javascript
 
-    const createSCS = require('scs.js'); // if using CommonJS
-    import createSCS from 'scs.js'; // if using ES6 modules
+    const createSCS = require('scs-solver'); // if using CommonJS
+    import createSCS from 'scs-solver'; // if using ES6 modules
 
-or in the browser via
-
-.. code-block:: html
-
-    <script src="scs.js"></script>
+or in the browser via a script tag or an ES6 module import (see :ref:`the 
+install page <javascript_install>`).
 
 Live Demo
 ---------

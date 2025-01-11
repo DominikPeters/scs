@@ -3,20 +3,18 @@
 JavaScript / WebAssembly
 ========================
 
-After :ref:`building the WebAssembly version <javascript_install>`, you can use SCS in 
-JavaScript environments including browsers and Node.js.
+After :ref:`installing the scs-solver package <javascript_install>`, or after 
+loading ``scs.js`` :ref:`in the browser <javascript_install>`, you can use SCS
+using the following interface.
 
-Note that the JavaScript version does not support compiling with BLAS and LAPACK,
-so it does not support solving SDPs.
+Instantiating the Solver
+------------------------
 
-Basic Usage
------------
-
-In Node.js, you can use SCS as follows:
+In Node.js, you can use SCS as follows using CommonJS:
 
 .. code-block:: javascript
 
-    const createSCS = require('scs.js');
+    const createSCS = require('scs-solver');
 
     createSCS().then(SCS => {
         // define problem here
@@ -27,7 +25,7 @@ Alternatively, you can use ES6 modules, as well as async/await:
 
 .. code-block:: javascript
 
-    import createSCS from 'scs.js';
+    import createSCS from 'scs-solver';
 
     async function main() {
         const SCS = await createSCS();
@@ -41,7 +39,7 @@ In browsers, you can load SCS using a script tag:
 
 .. code-block:: html
 
-    <script src="scs.js"></script>
+    <script src="https://unpkg.com/scs-solver/dist/scs.js"></script>
     <script>
         createSCS().then(SCS => {
             // define problem here
@@ -112,17 +110,29 @@ Cones are specified using the following structure:
 .. code-block:: javascript
 
     const cone = {
-        z: number,     // Number of linear equality constraints (primal zero, dual free)
-        l: number,     // Number of positive orthant cones
-        bu: number[],  // Upper box values (optional)
-        bl: number[],  // Lower box values (optional)
+        z: number,     // Number of zero cones
+        l: number,     // Number of positive (or linear) cones
+        bu: number[],  // Box cone upper values
+        bl: number[],  // Box cone lower values
         bsize: number, // Total length of box cone
-        q: number[],   // Array of second-order cone constraints (optional)
-        qsize: number, // Length of second-order cone array
+        q: number[],   // Array of second-order cone lengths
+        qsize: number, // Number of second-order cones
         ep: number,    // Number of primal exponential cone triples
         ed: number,    // Number of dual exponential cone triples
-        p: number[],   // Array of power cone parameters (optional)
-        psize: number  // Number of power cone triples convergence
+        p: number[],   // Array of power cone parameters
+        psize: number  // Number of power cone triples
+    };
+
+Note that positive semidefinite cones are not supported in the JavaScript interface.
+
+Usually, not all cone types are used in a problem, in which case the unused 
+cones can be omitted. For example, if only zero and positive cones are used:
+
+.. code-block:: javascript
+
+    const cone = {
+        z: 1,
+        l: 2
     };
 
 Settings
