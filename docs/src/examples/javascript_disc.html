@@ -143,25 +143,29 @@
                 }
             }
 
-            if (solution.status == 1) {
+            if (solution.status == "SOLVED") {
                 const x_sol = solution.x;
-                solutionPoint = [Math.round(x_sol[0] * 1000) / 1000, Math.round(x_sol[1] * 1000) / 1000];
+                const solutionPoint = x_sol.map(x => Math.round(x * 1000) / 1000);
 
-                output.textContent = JSON.stringify({
-                    status: 'Optimal',
+                let text = JSON.stringify({
+                    status: solution.status,
                     x: solutionPoint,
-                    d: Math.round(x_sol[2] * 1000) / 1000,
                     info: solution.info
-                }, null, 2);
-            } else if (solution.status == -2) {
+                }, null, 2).split('\n');
+                text[3] = text[3].padEnd(12) + "// x1";
+                text[4] = text[4].padEnd(12) + "// x2";
+                text[5] = text[5].padEnd(12) + "// d";
+                output.textContent = text.join('\n');
+                console.log(text.join('\n'));
+            } else if (solution.status == "INFEASIBLE") {
                 solutionPoint = null;
                 output.textContent = JSON.stringify({
-                    status: 'Infeasible',
+                    status: solution.status,
                     info: solution.info
                 }, null, 2);
             } else {
                 output.textContent = JSON.stringify({
-                    status: 'Failed',
+                    status: solution.status,
                     info: solution.info
                 }, null, 2);
             }

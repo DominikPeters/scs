@@ -182,11 +182,9 @@ The returned ``solution`` object contains:
     - ``iter``: Number of iterations
     - ``pobj``: Primal objective
     - ``dobj``: Dual objective
-    - ``resPri``: Primal residual
-    - ``resDual``: Dual residual
-    - ``resInfeas``: Infeasibility residual
-    - ``resUnbdd``: Unboundedness measure
     - ``solveTime``: Solve time
-    - ``setupTime``: Setup time
+    - and :ref:`other solver information <info>`
     
-- ``status``: Solution status code
+- ``status``: Solution status (e.g. ``SOLVED``, ``INFEASIBLE``, ``UNBOUNDED``, see :ref:`exit flags <exit_flags>`)
+- ``statusVal``: Solution status value (see :ref:`exit flags <exit_flags>`)
+
